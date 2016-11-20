@@ -1,11 +1,18 @@
 /**
+ * Организация: УрФУ
+ * Проект: Параллельные вычисления, 2016
  *
+ * @author Сухачев Илья
+ *         Пакет: ru.urfu.computing.server.core.logger
+ *         Дата создания класса: 19 ноября 2016 г.
  */
-package ru.urfu.computing.core.logger;
+package ru.urfu.computing.server.core.logger;
 
 import org.apache.logging.log4j.LogManager;
 
 /**
+ * Логер
+ *
  * @author lifeandfree
  */
 public class Logger {
