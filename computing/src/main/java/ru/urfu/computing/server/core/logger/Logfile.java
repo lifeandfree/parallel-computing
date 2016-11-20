@@ -15,24 +15,24 @@ import org.apache.logging.log4j.LogManager;
  *
  * @author lifeandfree
  */
-public class Logger {
+public class Logfile {
 
-    private static Logger instance = null;
+    private static Logfile instance = null;
 
-    public static synchronized Logger getInstance() {
+    public static synchronized Logfile getInstance() {
         if (instance == null) {
-            instance = new Logger();
+            instance = new Logfile();
         }
 
         return instance;
     }
 
-    private org.apache.logging.log4j.Logger logger = LogManager.getLogger(Logger.class.getName());
+    private org.apache.logging.log4j.Logger logger = LogManager.getLogger(Logfile.class.getName());
 
     /**
      *
      */
-    public Logger() {
+    public Logfile() {
         super();
     }
 
