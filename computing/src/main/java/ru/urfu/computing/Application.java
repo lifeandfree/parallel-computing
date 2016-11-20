@@ -12,6 +12,7 @@ public class Application {
         Logfile.getInstance().getLogger().info(Application.class.getName() + ": Hello World!");
         Unhandled unhandled = new Unhandled("man", "photo", "tags");
         DaoFactory.getInstance().getUnhandledDAO().addElement(unhandled);
+        System.out.println(DaoFactory.getInstance().getUnhandledDAO().getElementByID(1L).toString());
     }
 
 }

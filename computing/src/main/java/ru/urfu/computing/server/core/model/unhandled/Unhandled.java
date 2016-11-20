@@ -118,4 +118,13 @@ public class Unhandled implements Serializable {
         this.tags = tags;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "Unhandled [id=" + id + ", man=" + man + ", photo=" + photo + ", tags=" + tags + "]";
+    }
+
 }
