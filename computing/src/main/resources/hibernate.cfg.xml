@@ -34,7 +34,8 @@
 		<property name="cache.provider_class">org.hibernate.cache.internal.NoCacheProvider</property>
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.format_sql">true</property>
-        <property name="hibernate.hbm2ddl.auto">create</property><!-- create|auto|none|update|validate -->
+        <property name="hibernate.hbm2ddl.auto">none</property><!-- create|auto|none|update|validate -->
         <mapping class="ru.urfu.computing.server.core.model.unhandled.Unhandled"/>
+<!--         <mapping class="ru.urfu.computing.server.core.model.person.Person"/> -->
     </session-factory>
 </hibernate-configuration>

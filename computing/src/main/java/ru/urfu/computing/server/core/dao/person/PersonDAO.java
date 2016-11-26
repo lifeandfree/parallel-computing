@@ -6,7 +6,7 @@
  *         Пакет: ru.urfu.computing.server.core.dao
  *         Дата создания класса: 23 нояб. 2016 г.
  */
-package ru.urfu.computing.server.core.dao;
+package ru.urfu.computing.server.core.dao.person;
 
 import ru.urfu.computing.server.core.dao.element.ElementDAOImpl;
 import ru.urfu.computing.server.core.model.person.Person;

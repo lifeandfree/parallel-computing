@@ -14,6 +14,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
+import ru.urfu.computing.server.core.dao.person.PersonDAO;
 import ru.urfu.computing.server.core.dao.unhandled.UnhandledDAO;
 import ru.urfu.computing.server.core.db.hibernate.HibernateUtil;
 import ru.urfu.computing.server.core.model.unhandled.Unhandled;
@@ -33,7 +34,15 @@ public class DaoFactory {
         return instance;
     }
 
+    private PersonDAO personDAO = new PersonDAO();
     private UnhandledDAO unhandledDAO = new UnhandledDAO();
+
+    /**
+     * @return the personDAO
+     */
+    public PersonDAO getPersonDAO() {
+        return personDAO;
+    }
 
     /**
      * @return the unhandledDAO
