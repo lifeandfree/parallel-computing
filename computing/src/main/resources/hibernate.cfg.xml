@@ -18,6 +18,12 @@
 <!-- 		<property name="hibernate.connection.driver_class">org.sqlite.JDBC</property> -->
 <!-- 		<property name="hibernate.connection.username">computing</property> -->
 <!--         <property name="hibernate.connection.password">123</property> -->
+		<!-- Hive -->
+        <property name="hibernate.dialect">org.hibernate.dialect.SQLiteDialect</property>
+        <property name="hibernate.connection.url">jdbc:sqlite:computing.db</property>
+		<property name="hibernate.connection.driver_class">org.sqlite.JDBC</property>
+		<property name="hibernate.connection.username">computing</property>
+        <property name="hibernate.connection.password">123</property>
 		<!-- h2 -->
         <property name="hibernate.connection.driver_class">org.h2.Driver</property>
         <property name="hibernate.connection.url">jdbc:h2:~/computing</property>
