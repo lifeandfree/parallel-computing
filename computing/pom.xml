@@ -106,6 +106,12 @@
 <!-- 		    <scope>system</scope> -->
 <!-- 		    <systemPath>${JAVA_HOME}/lib/tools.jar</systemPath> -->
 <!-- 		</dependency> -->
+
+			<dependency>
+				<groupId>com.flickr4java</groupId>
+				<artifactId>flickr4java</artifactId>
+				<version>2.16</version>
+			</dependency>
 		
   </dependencies>
   
