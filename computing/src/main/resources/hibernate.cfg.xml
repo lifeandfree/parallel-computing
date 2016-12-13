@@ -43,5 +43,6 @@
         <property name="hibernate.hbm2ddl.auto">none</property><!-- create|auto|none|update|validate -->
         <mapping class="ru.urfu.computing.server.core.model.unhandled.Unhandled"/>
 <!--         <mapping class="ru.urfu.computing.server.core.model.person.Person"/> -->
+<!--         <mapping class="ru.urfu.computing.server.core.model.man.Man"/> -->
     </session-factory>
 </hibernate-configuration>

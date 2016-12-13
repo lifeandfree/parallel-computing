@@ -17,6 +17,7 @@ import org.hibernate.query.Query;
 import ru.urfu.computing.server.core.dao.person.PersonDAO;
 import ru.urfu.computing.server.core.dao.unhandled.UnhandledDAO;
 import ru.urfu.computing.server.core.db.hibernate.HibernateUtil;
+import ru.urfu.computing.server.core.logger.Logfile;
 import ru.urfu.computing.server.core.model.unhandled.Unhandled;
 
 /**
@@ -34,8 +35,16 @@ public class DaoFactory {
         return instance;
     }
 
+    private ManDAO manDAO = new ManDAO();
     private PersonDAO personDAO = new PersonDAO();
     private UnhandledDAO unhandledDAO = new UnhandledDAO();
+
+    /**
+     * @return the manDAO
+     */
+    public ManDAO getManDAO() {
+        return manDAO;
+    }
 
     /**
      * @return the personDAO
@@ -74,10 +83,10 @@ public class DaoFactory {
             q.executeUpdate();
         }
         catch (HibernateException e) {
-            System.err.println(e.toString());
+            Logfile.getInstance().getLogger().error(this.getClass().getName() + e.toString());
         }
         catch (IllegalFormatException e) {
-            System.err.println(e.toString());
+            Logfile.getInstance().getLogger().error(this.getClass().getName() + e.toString());
         }
         finally {
             if (sess != null && sess.isOpen()) {
