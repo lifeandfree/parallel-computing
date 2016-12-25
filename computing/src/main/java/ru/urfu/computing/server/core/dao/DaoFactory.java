@@ -14,7 +14,10 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
+import ru.urfu.computing.server.core.dao.camera.CameraDAO;
+import ru.urfu.computing.server.core.dao.location.LocationDAO;
 import ru.urfu.computing.server.core.dao.person.PersonDAO;
+import ru.urfu.computing.server.core.dao.relation.RelationDAO;
 import ru.urfu.computing.server.core.dao.unhandled.UnhandledDAO;
 import ru.urfu.computing.server.core.db.hibernate.HibernateUtil;
 import ru.urfu.computing.server.core.logger.Logfile;
@@ -35,15 +38,24 @@ public class DaoFactory {
         return instance;
     }
 
-    private ManDAO manDAO = new ManDAO();
+    private CameraDAO cameraDAO = new CameraDAO();
+    private LocationDAO locationDAO = new LocationDAO();
     private PersonDAO personDAO = new PersonDAO();
+    private RelationDAO relationDAO = new RelationDAO();
     private UnhandledDAO unhandledDAO = new UnhandledDAO();
 
     /**
-     * @return the manDAO
+     * @return the cameraDAO
      */
-    public ManDAO getManDAO() {
-        return manDAO;
+    public CameraDAO getCameraDAO() {
+        return cameraDAO;
+    }
+
+    /**
+     * @return the locationDAO
+     */
+    public LocationDAO getLocationDAO() {
+        return locationDAO;
     }
 
     /**
@@ -51,6 +63,13 @@ public class DaoFactory {
      */
     public PersonDAO getPersonDAO() {
         return personDAO;
+    }
+
+    /**
+     * @return the relationDAO
+     */
+    public RelationDAO getRelationDAO() {
+        return relationDAO;
     }
 
     /**

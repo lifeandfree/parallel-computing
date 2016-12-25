@@ -23,7 +23,7 @@ import org.hibernate.annotations.Type;
  * @author lifeandfree
  */
 @Entity
-@Table(name = "UNHANDLED")
+@Table(name = "PERSON")
 public class Person implements Serializable {
 
     /**
@@ -31,36 +31,38 @@ public class Person implements Serializable {
      */
     private static final long serialVersionUID = -2225628683943215488L;
 
-    @Column(name = "city")
-    @Type(type = "text")
-    private String city;
-
-    @Column(name = "device", nullable = false)
-    @Type(type = "text")
-    private String device;
-
     @Id
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
     @Column(name = "id", unique = true, nullable = false)
     private Long id;
 
-    @Column(name = "man", nullable = false)
+    @Column(name = "service", nullable = false)
     @Type(type = "text")
-    private String man;
+    private String service;
+
+    @Column(name = "service_id", nullable = false)
+    @Type(type = "text")
+    private String service_id;
 
     /**
-     * @return the city
+     * @param service
+     * @param service_id
      */
-    public String getCity() {
-        return city;
+    public Person() {
+        super();
+        this.service = null;
+        this.service_id = null;
     }
 
     /**
-     * @return the device
+     * @param service
+     * @param service_id
      */
-    public String getDevice() {
-        return device;
+    public Person(String service, String service_id) {
+        super();
+        this.service = service;
+        this.service_id = service_id;
     }
 
     /**
@@ -71,33 +73,32 @@ public class Person implements Serializable {
     }
 
     /**
-     * @return the man
+     * @return the service
      */
-    public String getMan() {
-        return man;
+    public String getService() {
+        return service;
     }
 
     /**
-     * @param city
-     *            the city to set
+     * @return the service_id
      */
-    public void setCity(String city) {
-        this.city = city;
+    public String getService_id() {
+        return service_id;
     }
 
     /**
-     * @param device
-     *            the device to set
+     * @param service
+     *            the service to set
      */
-    public void setDevice(String device) {
-        this.device = device;
+    public void setService(String service) {
+        this.service = service;
     }
 
     /**
-     * @param man
-     *            the man to set
+     * @param service_id
+     *            the service_id to set
      */
-    public void setMan(String man) {
-        this.man = man;
+    public void setService_id(String service_id) {
+        this.service_id = service_id;
     }
 }
