@@ -19,11 +19,11 @@
 <!-- 		<property name="hibernate.connection.username">computing</property> -->
 <!--         <property name="hibernate.connection.password">123</property> -->
 		<!-- Hive -->
-        <property name="hibernate.dialect">org.hibernate.dialect.SQLiteDialect</property>
-        <property name="hibernate.connection.url">jdbc:sqlite:computing.db</property>
-		<property name="hibernate.connection.driver_class">org.sqlite.JDBC</property>
-		<property name="hibernate.connection.username">computing</property>
-        <property name="hibernate.connection.password">123</property>
+<!--         <property name="hibernate.dialect">org.hibernate.dialect.SQLiteDialect</property> -->
+<!--         <property name="hibernate.connection.url">jdbc:sqlite:computing.db</property> -->
+<!-- 		<property name="hibernate.connection.driver_class">org.sqlite.JDBC</property> -->
+<!-- 		<property name="hibernate.connection.username">computing</property> -->
+<!--         <property name="hibernate.connection.password">123</property> -->
 		<!-- h2 -->
         <property name="hibernate.connection.driver_class">org.h2.Driver</property>
         <property name="hibernate.connection.url">jdbc:h2:~/computing</property>
@@ -40,9 +40,11 @@
 		<property name="cache.provider_class">org.hibernate.cache.internal.NoCacheProvider</property>
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.format_sql">true</property>
-        <property name="hibernate.hbm2ddl.auto">none</property><!-- create|auto|none|update|validate -->
+        <property name="hibernate.hbm2ddl.auto">create</property><!-- create|auto|none|update|validate -->
         <mapping class="ru.urfu.computing.server.core.model.unhandled.Unhandled"/>
-<!--         <mapping class="ru.urfu.computing.server.core.model.person.Person"/> -->
-<!--         <mapping class="ru.urfu.computing.server.core.model.man.Man"/> -->
+        <mapping class="ru.urfu.computing.server.core.model.relation.Relation"/>
+        <mapping class="ru.urfu.computing.server.core.model.person.Person"/>
+        <mapping class="ru.urfu.computing.server.core.model.camera.Camera"/>
+        <mapping class="ru.urfu.computing.server.core.model.location.Location"/>
     </session-factory>
 </hibernate-configuration>
