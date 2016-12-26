@@ -48,7 +48,8 @@ public class Rest extends Transport {
         setTimeouts(request);
         org.scribe.model.Response scribeResponse = request.send();
 
-        Response response = null;
+        Response response = new RESTResponse();
+        response.setCurrentPage(Long.valueOf(parameters.get("page").toString()));
         String strRes = scribeResponse.getBody().trim();
         strRes.toString();
         if (strRes.startsWith("oauth_problem=")) {
@@ -59,6 +60,14 @@ public class Rest extends Transport {
                 Logfile.getInstance().getLogger().error(e);
             }
         }
+
+        Parser parser;
+        if (parameters.containsValue("json")) {
+            parser = new JsonParser(response);
+            // response.setParser(parser);
+            response = parser.getData(strRes);
+        }
+
         return response;
     }
 
