@@ -34,10 +34,10 @@ public class UnhandledDAO extends ElementDAOImpl<Unhandled> {
         super(elementClass);
     }
 
-    public Unhandled addUnhandled(String person, String photo, String tags) {
+    public Unhandled addUnhandled(String photo, String tags) {
         Unhandled unhandled = DaoFactory.getInstance().getUnhandledDAO().getByPhoto(photo);
         if (unhandled == null) {
-            unhandled = DaoFactory.getInstance().getUnhandledDAO().addElement(new Unhandled(person, photo, tags));
+            unhandled = DaoFactory.getInstance().getUnhandledDAO().addElement(new Unhandled(photo, tags));
         }
         else {
             Logfile.getInstance().getLogger().error(this.getClass().getName() + " Such photo exists.");

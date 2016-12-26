@@ -37,12 +37,7 @@ public class Unhandled implements Serializable {
     @Column(name = "id", unique = true, nullable = false)
     private Long id;
 
-    @Column(name = "man", nullable = false)
-    @Type(type = "text")
-    private String man;
-
     @Column(name = "photo", nullable = false)
-    @Type(type = "text")
     private String photo;
 
     @Column(name = "tags")
@@ -54,14 +49,12 @@ public class Unhandled implements Serializable {
      */
     public Unhandled() {
         super();
-        this.man = null;
         this.photo = null;
         this.tags = null;
     }
 
-    public Unhandled(String man, String photo, String tags) {
+    public Unhandled(String photo, String tags) {
         super();
-        this.man = man;
         this.photo = photo;
         this.tags = tags;
     }
@@ -71,13 +64,6 @@ public class Unhandled implements Serializable {
      */
     public Long getId() {
         return id;
-    }
-
-    /**
-     * @return the man
-     */
-    public String getMan() {
-        return man;
     }
 
     /**
@@ -92,14 +78,6 @@ public class Unhandled implements Serializable {
      */
     public String getTags() {
         return tags;
-    }
-
-    /**
-     * @param man
-     *            the man to set
-     */
-    public void setMan(String man) {
-        this.man = man;
     }
 
     /**
@@ -124,7 +102,7 @@ public class Unhandled implements Serializable {
      */
     @Override
     public String toString() {
-        return "Unhandled [id=" + id + ", man=" + man + ", photo=" + photo + ", tags=" + tags + "]";
+        return "Unhandled [id=" + id + ", photo=" + photo + ", tags=" + tags + "]";
     }
 
 }
