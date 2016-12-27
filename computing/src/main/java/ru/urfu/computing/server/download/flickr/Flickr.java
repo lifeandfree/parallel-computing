@@ -28,13 +28,35 @@ public class Flickr {
 
     public static final String API_KEY = "api_key";
 
+    public Flickr() {
+    }
+
+    /**
+     * @param min_upload_date
+     * @param max_upload_date
+     * @param interval
+     * @return
+     */
+    public void getAndWriteUnhanledToDB(long min_upload_date, long max_upload_date, long interval) {
+        while (min_upload_date < max_upload_date) {
+            getAndWriteUnhanledToDBByTime(min_upload_date, min_upload_date + interval);
+            min_upload_date += interval;
+            try {
+                Thread.sleep(1000);
+            }
+            catch (InterruptedException e) {
+                Logfile.getInstance().getLogger().error(e);
+            }
+        }
+    }
+
     /**
      * @param apiKey
      * @param sharedSecret
      * @param parameters
      * @param transport
      */
-    public static void getAndWriteUnhanledToDBByPage(String apiKey, String sharedSecret, Map<String, Object> parameters,
+    public void getAndWriteUnhanledToDBByPage(String apiKey, String sharedSecret, Map<String, Object> parameters,
             Transport transport) {
         try {
             Response response = transport.get(transport.getPath(), parameters, apiKey, sharedSecret);
@@ -48,7 +70,14 @@ public class Flickr {
             if ((response.getCurrentPage() <= response.getTotalPages())
                     && (response.getCurrentPage() <= Response.MAX_PAGES)) {
                 parameters.put("page", response.getCurrentPage());
+
                 getAndWriteUnhanledToDBByPage(apiKey, sharedSecret, parameters, transport);
+                try {
+                    Thread.sleep(1000);
+                }
+                catch (InterruptedException e) {
+                    Logfile.getInstance().getLogger().error(e);
+                }
             }
         }
         catch (FlickrException e) {
@@ -60,11 +89,11 @@ public class Flickr {
      * @param min_upload_date
      * @param max_upload_date
      */
-    public static void getAndWriteUnhanledToDBByTime(long min_upload_date, long max_upload_date) {
+    public void getAndWriteUnhanledToDBByTime(long min_upload_date, long max_upload_date) {
         // params = "{per_page=10, method=flickr.photos.search, user_id=59159233@N04, format=json,
         // extras=url_t,owner_name,machine_tags,date_upload,url_s,o_dims,media,url_sq,tags,geo,license,original_format,path_alias,last_update,url_o,icon_server,url_l,url_m,camera,date_taken,views,
         // page=1}";
-    
+
         Properties properties = null;
         InputStream in = null;
         String apiKey = null;
@@ -83,7 +112,7 @@ public class Flickr {
         finally {
             IOUtilities.close(in);
         }
-    
+
         Map<String, Object> parameters = new HashMap<String, Object>();
         parameters.put("per_page", "250");
         parameters.put("method", "flickr.photos.search");
@@ -96,27 +125,14 @@ public class Flickr {
         // parameters.put("extras",
         // "url_t,owner_name,machine_tags,date_upload,url_s,o_dims,media,url_sq,tags,geo,license,original_format,path_alias,last_update,url_o,icon_server,url_l,url_m,camera,date_taken,views");
         // java.sql.Timestamp timestamp = new java.sql.Timestamp(1482521700000L);
-    
-        parameters.put("min_upload_date", min_upload_date);
-    
-        parameters.put("max_upload_date", max_upload_date);
-    
-        Transport transport = new Rest();
-    
-        getAndWriteUnhanledToDBByPage(apiKey, sharedSecret, parameters, transport);
-    }
 
-    /**
-     * @param min_upload_date
-     * @param max_upload_date
-     * @param interval
-     * @return
-     */
-    public static void getAndWriteUnhanledToDB(long min_upload_date, long max_upload_date, long interval) {
-        while (min_upload_date < max_upload_date) {
-            getAndWriteUnhanledToDBByTime(min_upload_date, min_upload_date + interval);
-            min_upload_date += interval;
-        }
+        parameters.put("min_upload_date", min_upload_date);
+
+        parameters.put("max_upload_date", max_upload_date);
+
+        Transport transport = new Rest();
+
+        getAndWriteUnhanledToDBByPage(apiKey, sharedSecret, parameters, transport);
     }
 
 }

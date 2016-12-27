@@ -19,7 +19,8 @@ public class Application {
         long min_upload_date = 1482519900;
         long max_upload_date = 1482521700;
         long interval = 600;
-        Flickr.getAndWriteUnhanledToDB(min_upload_date, max_upload_date, interval);
+        Flickr flickr = new Flickr();
+        flickr.getAndWriteUnhanledToDB(min_upload_date, max_upload_date, interval);
         Collection<Unhandled> hh = DaoFactory.getInstance().getUnhandledDAO().getAllElements();
         System.out.println(hh);
         // System.out.println(DaoFactory.getInstance().getUnhandledDAO().getElementByID(2L).toString());
