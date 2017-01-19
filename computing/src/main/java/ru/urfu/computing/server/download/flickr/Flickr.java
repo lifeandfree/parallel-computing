@@ -99,7 +99,7 @@ public class Flickr {
         String apiKey = null;
         String sharedSecret = null;
         try {
-            in = Test.class.getResourceAsStream("/auth.properties");
+            in = Flickr.class.getResourceAsStream("/auth.properties");
             properties = new Properties();
             properties.load(in);
             apiKey = properties.getProperty("apiKey");

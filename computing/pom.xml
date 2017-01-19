@@ -78,18 +78,60 @@
         </dependency>
         
         <!-- https://mvnrepository.com/artifact/org.apache.derby/derbyclient -->
-		<dependency>
-		    <groupId>org.apache.derby</groupId>
-		    <artifactId>derbyclient</artifactId>
-		    <version>10.10.2.0</version>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 		    <groupId>org.apache.derby</groupId> -->
+<!-- 		    <artifactId>derbyclient</artifactId> -->
+<!-- 		    <version>10.10.2.0</version> -->
+<!-- 		</dependency> -->
         
 	<!-- https://mvnrepository.com/artifact/org.apache.hive/hive-jdbc -->
-<!-- 		<dependency> -->
-<!-- 		   	 <groupId>org.apache.hive</groupId> -->
-<!-- 			 <artifactId>hive-jdbc</artifactId> -->
-<!-- 		     <version>2.1.0</version> -->
-<!-- 		</dependency> -->
+		<dependency>
+		   	 <groupId>org.apache.hive</groupId>
+			 <artifactId>hive-jdbc</artifactId>
+		     <version>2.1.0</version>
+		</dependency>
+
+<!-- https://mvnrepository.com/artifact/org.apache.hive/hive-common -->
+		<dependency>
+		    <groupId>org.apache.hive</groupId>
+		    <artifactId>hive-common</artifactId>
+		    <version>2.1.0</version>
+		</dependency>
+
+<!-- https://mvnrepository.com/artifact/org.apache.hive/hive-storage-api -->
+<!-- <dependency> -->
+<!--     <groupId>org.apache.hive</groupId> -->
+<!--     <artifactId>hive-storage-api</artifactId> -->
+<!--     <version>2.1.0</version> -->
+<!-- </dependency> -->
+
+<!-- https://mvnrepository.com/artifact/org.eclipse.jetty.aggregate/jetty-all-server -->
+<!-- <dependency> -->
+<!--     <groupId>org.eclipse.jetty.aggregate</groupId> -->
+<!--     <artifactId>jetty-all-server</artifactId> -->
+<!--     <version>7.6.0.v20120127</version> -->
+<!-- </dependency> -->
+
+<!-- https://mvnrepository.com/artifact/org.apache.hive/hive-orc -->
+<!-- <dependency> -->
+<!--     <groupId>org.apache.hive</groupId> -->
+<!--     <artifactId>hive-orc</artifactId> -->
+<!--     <version>2.1.0</version> -->
+<!-- </dependency> -->
+
+<!-- https://mvnrepository.com/artifact/org.apache.slider/slider-core -->
+<dependency>
+    <groupId>org.apache.slider</groupId>
+    <artifactId>slider-core</artifactId>
+    <version>0.90.2-incubating</version>
+</dependency>
+
+<!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpcore -->
+		<dependency>
+		    <groupId>org.apache.httpcomponents</groupId>
+		    <artifactId>httpcore</artifactId>
+		    <version>4.4</version>
+		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.apache.spark/spark-core_2.11 -->
 <!-- 		<dependency> -->
@@ -106,11 +148,25 @@
 <!-- 		</dependency> -->
 
 <!-- https://mvnrepository.com/artifact/org.apache.hadoop/hadoop-common -->
-<!-- 		<dependency> -->
-<!-- 		    <groupId>org.apache.hadoop</groupId> -->
-<!-- 		    <artifactId>hadoop-common</artifactId> -->
-<!-- 		    <version>2.7.3</version> -->
-<!-- 		</dependency> -->
+		<dependency>
+		    <groupId>org.apache.hadoop</groupId>
+		    <artifactId>hadoop-common</artifactId>
+		    <version>2.7.3</version>
+		</dependency>
+
+<!-- https://mvnrepository.com/artifact/org.apache.hadoop/hadoop-hdfs -->
+		<dependency>
+		    <groupId>org.apache.hadoop</groupId>
+		    <artifactId>hadoop-hdfs</artifactId>
+		    <version>2.7.3</version>
+		</dependency>
+		
+<!-- https://mvnrepository.com/artifact/org.apache.hadoop/hadoop-client -->
+		<dependency>
+		    <groupId>org.apache.hadoop</groupId>
+		    <artifactId>hadoop-client</artifactId>
+		    <version>2.7.3</version>
+		</dependency>
 
 <!-- https://mvnrepository.com/artifact/org.apache.hadoop/hadoop-mapreduce-client-core -->
 <!-- 		<dependency> -->
@@ -118,6 +174,62 @@
 <!-- 		    <artifactId>hadoop-mapreduce-client-core</artifactId> -->
 <!-- 		    <version>2.7.3</version> -->
 <!-- 		</dependency> -->
+
+<!-- https://mvnrepository.com/artifact/org.apache.thrift/libfb303 -->
+		<dependency>
+		    <groupId>org.apache.thrift</groupId>
+		    <artifactId>libfb303</artifactId>
+		    <version>0.9.3</version>
+		</dependency>
+
+<!-- https://mvnrepository.com/artifact/org.apache.hive/hive-exec -->
+		<dependency>
+		    <groupId>org.apache.hive</groupId>
+		    <artifactId>hive-exec</artifactId>
+		    <version>2.1.0</version>
+		</dependency>
+
+<!-- https://mvnrepository.com/artifact/org.apache.thrift/libthrift -->
+		<dependency>
+		    <groupId>org.apache.thrift</groupId>
+		    <artifactId>libthrift</artifactId>
+		    <version>0.9.3</version>
+		</dependency>
+
+<!-- https://mvnrepository.com/artifact/org.apache.hbase/hbase-server -->
+<!-- 		<dependency> -->
+<!-- 		    <groupId>org.apache.hbase</groupId> -->
+<!-- 		    <artifactId>hbase-server</artifactId> -->
+<!-- 		    <version>1.1.1</version> -->
+<!-- 		</dependency> -->
+
+<!-- https://mvnrepository.com/artifact/org.apache.hive/hive-metastore -->
+<!-- <dependency> -->
+<!--     <groupId>org.apache.hive</groupId> -->
+<!--     <artifactId>hive-metastore</artifactId> -->
+<!--     <version>2.1.0</version> -->
+<!-- </dependency> -->
+
+<!-- https://mvnrepository.com/artifact/org.apache.hbase/hbase-client -->
+<!-- <dependency> -->
+<!--     <groupId>org.apache.hbase</groupId> -->
+<!--     <artifactId>hbase-client</artifactId> -->
+<!--     <version>1.1.1</version> -->
+<!-- </dependency> -->
+
+<!-- https://mvnrepository.com/artifact/org.apache.hbase/hbase-annotations -->
+<!-- <dependency> -->
+<!--     <groupId>org.apache.hbase</groupId> -->
+<!--     <artifactId>hbase-annotations</artifactId> -->
+<!--     <version>1.1.1</version> -->
+<!-- </dependency> -->
+
+<!-- https://mvnrepository.com/artifact/commons-logging/commons-logging -->
+		<dependency>
+		    <groupId>commons-logging</groupId>
+		    <artifactId>commons-logging</artifactId>
+		    <version>1.2</version>
+		</dependency>
 
 <!-- 		<dependency> -->
 <!-- 		    <groupId>jdk.tools</groupId> -->
@@ -158,6 +270,48 @@
           		<target>${jdkVersion}</target>
         	</configuration>
       	</plugin>
+      	
+<!-- 	    <plugin> -->
+<!-- 	     <groupId>org.apache.maven.plugins</groupId> -->
+<!-- 	         <artifactId>maven-assembly-plugin</artifactId> -->
+<!-- 	        <executions> -->
+<!-- 	        <execution> -->
+<!-- 	         <goals> -->
+<!-- 	           <goal>attached</goal> -->
+<!-- 	         </goals> -->
+<!-- 	         <phase>package</phase> -->
+<!-- 	         <configuration> -->
+<!-- 	           <descriptorRefs> -->
+<!-- 	             <descriptorRef>jar-with-dependencies</descriptorRef> -->
+<!-- 	          </descriptorRefs> -->
+<!-- 	          <archive> -->
+<!-- 	            <manifest> -->
+<!-- 	              <addClasspath>true</addClasspath> -->
+<!-- 	              <mainClass>org.lll..</mainClass> -->
+<!-- 	            </manifest> -->
+<!-- 	      <manifestEntries> -->
+<!-- 	          <Class-Path>../target/classes</Class-Path> -->
+<!-- 	            </manifestEntries> -->
+<!-- 	          </archive> -->
+<!-- 	        </configuration> -->
+<!-- 	        </execution> -->
+<!-- 	    </executions> -->
+<!-- 	      </plugin> -->
+<!-- 	      <plugin> -->
+<!-- 	        <groupId>org.apache.maven.plugins</groupId> -->
+<!-- 	        <artifactId>maven-jar-plugin</artifactId> -->
+<!-- 	        <configuration> -->
+<!-- 	          <archive> -->
+<!-- 	            <manifest> -->
+<!-- 	              <addClasspath>true</addClasspath> -->
+<!-- 	          <mainClass>org...</mainClass> -->
+<!-- 	            </manifest> -->
+<!-- 	          </archive> -->
+<!-- 	      <manifestEntries> -->
+<!-- 	          <Class-Path>../target/classes</Class-Path> -->
+<!-- 	        </manifestEntries> -->
+<!-- 	        </configuration> -->
+<!-- 	      </plugin> -->
       
       </plugins>
           
