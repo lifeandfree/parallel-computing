@@ -52,17 +52,6 @@ public class FileHandler {
             this.create();
             this.update(text);
         }
-        // else {
-        // List<String> lines = Arrays.asList("The first line", "The second line");
-        // Path file = Paths.get(fileName);
-        // try {
-        // Files.write(file, lines, Charset.forName("UTF-8"));
-        // }
-        // catch (IOException e) {
-        // String method = getMethodName() + "(" + fileName != null ? fileName : "null" + "): ";
-        // Logfile.getInstance().getLogger().error(method + "File not found");
-        // }
-        // }
     }
 
     /**
