@@ -37,31 +37,30 @@ public class Person implements Serializable {
     @Column(name = "id", unique = true, nullable = false)
     private Long id;
 
-    @Column(name = "service", nullable = false)
+    @Column(name = "name", nullable = false)
     @Type(type = "text")
-    private String service;
+    private String name;
 
     @Column(name = "service_id", nullable = false)
-    @Type(type = "text")
-    private String service_id;
+    private long service_id;
 
     /**
-     * @param service
+     * @param name
      * @param service_id
      */
     public Person() {
         super();
-        this.service = null;
-        this.service_id = null;
+        this.name = null;
+        this.service_id = 0L;
     }
 
     /**
-     * @param service
+     * @param name
      * @param service_id
      */
-    public Person(String service, String service_id) {
+    public Person(String name, long service_id) {
         super();
-        this.service = service;
+        this.name = name;
         this.service_id = service_id;
     }
 
@@ -73,32 +72,33 @@ public class Person implements Serializable {
     }
 
     /**
-     * @return the service
+     * @return the name
      */
-    public String getService() {
-        return service;
+    public String getName() {
+        return name;
     }
 
     /**
      * @return the service_id
      */
-    public String getService_id() {
+    public long getService_id() {
         return service_id;
     }
 
     /**
-     * @param service
-     *            the service to set
+     * @param name
+     *            the name to set
      */
-    public void setService(String service) {
-        this.service = service;
+    public void setName(String name) {
+        this.name = name;
     }
 
     /**
      * @param service_id
      *            the service_id to set
      */
-    public void setService_id(String service_id) {
+    public void setService_id(long service_id) {
         this.service_id = service_id;
     }
+
 }

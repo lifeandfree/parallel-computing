@@ -18,6 +18,7 @@ import ru.urfu.computing.server.core.dao.camera.CameraDAO;
 import ru.urfu.computing.server.core.dao.location.LocationDAO;
 import ru.urfu.computing.server.core.dao.person.PersonDAO;
 import ru.urfu.computing.server.core.dao.relation.RelationDAO;
+import ru.urfu.computing.server.core.dao.service.ServiceDAO;
 import ru.urfu.computing.server.core.dao.unhandled.UnhandledDAO;
 import ru.urfu.computing.server.core.db.hibernate.HibernateUtil;
 import ru.urfu.computing.server.core.logger.Logfile;
@@ -42,6 +43,7 @@ public class DaoFactory {
     private LocationDAO locationDAO = new LocationDAO();
     private PersonDAO personDAO = new PersonDAO();
     private RelationDAO relationDAO = new RelationDAO();
+    private ServiceDAO serviceDAO = new ServiceDAO();
     private UnhandledDAO unhandledDAO = new UnhandledDAO();
 
     /**
@@ -70,6 +72,13 @@ public class DaoFactory {
      */
     public RelationDAO getRelationDAO() {
         return relationDAO;
+    }
+
+    /**
+     * @return the serviceDAO
+     */
+    public ServiceDAO getServiceDAO() {
+        return serviceDAO;
     }
 
     /**
