@@ -9,6 +9,7 @@
 package ru.urfu.computing.tarcam.site.servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -27,16 +28,16 @@ public class MainPage extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        req.setAttribute("title", "tarcam");
-        req.setAttribute("body", "tarcam");
-        req.getRequestDispatcher("main_page_template.jsp").forward(req, resp);
+    	req.setAttribute("title", "tarcam");
+    	//StringBuilder sb = new StringBuilder("")
+        req.setAttribute("body", "tarcam111111111111111111111");
+        req.getRequestDispatcher("main_page_template.jsp").forward(req, resp);  
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         super.doPost(req, resp);
-    }
+    }   
 
 }
