@@ -13,9 +13,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import ru.urfu.computing.server.core.dao.photo.PhotoDAO;
 import ru.urfu.computing.server.core.db.jdbc.ConnectionFactory;
 import ru.urfu.computing.server.core.db.jdbc.DbUtil;
 import ru.urfu.computing.server.core.db.jdbc.model.database.Database;
+import ru.urfu.computing.server.core.db.jdbc.model.photo.FlickrPhoto;
 import ru.urfu.computing.server.core.logger.Logfile;
 
 /**
@@ -40,7 +42,7 @@ public class HiveJdbcClient {
     /**
      *
      */
-    public void getDataFromHive() {
+    public void getDataFromHive(String service) {
         String query = "SELECT * FROM json_unhandled where json_unhandled.camera != ''";
         ResultSet rs = null;
         try {
@@ -49,8 +51,11 @@ public class HiveJdbcClient {
             statement = connection.createStatement();
             rs = statement.executeQuery(query);
             while (rs.next()) {
-                System.out.println(rs.getString(1) + " | " + rs.getString(2) + " | " + rs.getString(3) + " | "
-                        + rs.getString(4) + " | " + rs.getString(5));
+                FlickrPhoto flickrPhoto = new FlickrPhoto(rs.getString("camera"), rs.getString("id"),
+                        rs.getString("latitude"), rs.getString("longitude"), rs.getString("owner"), service);
+                PhotoDAO photoDAO = new PhotoDAO();
+                photoDAO.writePhotoToBD(flickrPhoto);
+                // System.out.println(flickrPhoto.toString());
             }
         }
         catch (SQLException e) {
