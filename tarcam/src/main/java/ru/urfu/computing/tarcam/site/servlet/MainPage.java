@@ -9,12 +9,13 @@
 package ru.urfu.computing.tarcam.site.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import ru.urfu.computing.tarcam.site.element.select.Select;
 
 /**
  * @author lifeandfree
@@ -28,16 +29,17 @@ public class MainPage extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    	req.setAttribute("title", "tarcam");
-    	//StringBuilder sb = new StringBuilder("")
+        req.setAttribute("title", "tarcam");
+        // StringBuilder sb = new StringBuilder("")
         req.setAttribute("body", "<h1>Tarcam</h1>");
-        req.getRequestDispatcher("main_page_template.jsp").forward(req, resp);  
+        req.setAttribute("selcamera", new Select().getSelectFromCameraList());
+        req.getRequestDispatcher("main_page_template.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         super.doPost(req, resp);
-    }   
+    }
 
 }

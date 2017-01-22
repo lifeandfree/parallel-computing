@@ -273,7 +273,7 @@
           		<target>${jdkVersion}</target>
         	</configuration>
       	</plugin>
-      	
+
 <!-- 	    <plugin> -->
 <!-- 	     <groupId>org.apache.maven.plugins</groupId> -->
 <!-- 	         <artifactId>maven-assembly-plugin</artifactId> -->
@@ -290,7 +290,7 @@
 <!-- 	          <archive> -->
 <!-- 	            <manifest> -->
 <!-- 	              <addClasspath>true</addClasspath> -->
-<!-- 	              <mainClass>org.lll..</mainClass> -->
+<!-- 	              <mainClass>ru.urfu.computing.Application</mainClass> -->
 <!-- 	            </manifest> -->
 <!-- 	      <manifestEntries> -->
 <!-- 	          <Class-Path>../target/classes</Class-Path> -->
@@ -307,7 +307,7 @@
 <!-- 	          <archive> -->
 <!-- 	            <manifest> -->
 <!-- 	              <addClasspath>true</addClasspath> -->
-<!-- 	          <mainClass>org...</mainClass> -->
+<!-- 	          <mainClass>ru.urfu.computing.Application</mainClass> -->
 <!-- 	            </manifest> -->
 <!-- 	          </archive> -->
 <!-- 	      <manifestEntries> -->

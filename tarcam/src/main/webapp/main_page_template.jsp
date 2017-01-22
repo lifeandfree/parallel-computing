@@ -195,7 +195,7 @@
 		${body}
 	<div>
 		<span><h2>Выберите название модели: </h2></span>
-		<select></select>
+		${selcamera}
 		<input type="button" value="Получить клиентов">
 	</div>		
 	<div>
