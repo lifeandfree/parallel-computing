@@ -30,7 +30,7 @@ public class MainPage extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     	req.setAttribute("title", "tarcam");
     	//StringBuilder sb = new StringBuilder("")
-        req.setAttribute("body", "tarcam111111111111111111111");
+        req.setAttribute("body", "<h1>Tarcam</h1>");
         req.getRequestDispatcher("main_page_template.jsp").forward(req, resp);  
     }
 
