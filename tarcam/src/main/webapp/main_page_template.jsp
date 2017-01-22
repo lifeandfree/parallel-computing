@@ -13,7 +13,8 @@
 	var myMap, myGeoObject, myRectangle, myCircle;
 	var flagShape, firstPointRect, secondPointRect, myCircleCoor, centerCoor, circleRadiusSize;
 	var flagShowRect;
-	flagShape = 'circle';
+	var telModel;
+	flagShape = 'none';
 	
 	function isInt(value) {
 		  return !isNaN(value) && 
@@ -40,7 +41,31 @@
 			flagShape = 'rectangle';
 			clearShape();
 		});
-
+		document.getElementById("none").addEventListener("click", function(){
+			flagShape = 'none';
+			clearShape();
+		});
+		
+		jQuery(document).ready(function(){                          
+		    $('#getClient').click(function(){ 
+		    	var myCircleCoorX, myCircleCoorY, firstPointRectX, firstPointRectY,secondPointRectX, secondPointRectY, fShape;
+		    	telModel = document.getElementById('modelSelect').value;
+		    	if (myCircleCoor != null) {myCircleCoorX =myCircleCoor[0];
+		    	myCircleCoorY = myCircleCoor[1];
+		    	}
+		    	if (firstPointRect != null){firstPointRectX = firstPointRect[0];
+		    	firstPointRectY = firstPointRect[1];
+		    	}
+		    	if (secondPointRect != null){secondPointRectX = secondPointRect[0];
+		    	secondPointRectY = secondPointRect[1];
+		    	}
+		    	if(flagShape != 'none'){fShape = flagShape.charAt(0);}
+		    	$.get( "localhost:8080/tarcam/clients", { tm:telModel, t:fShape, ccx: myCircleCoorX, ccy: myCircleCoorY,cr: circleRadiusSize, 
+		    		fprx: firstPointRectX, fpry: firstPointRectY, sprx: secondPointRectX, spry: secondPointRectY } );
+		    	//tm:Модель телефона t тип выделения, ccx центр круга X, ccy: центр круга Y,cr: радиус, fprx: левый верх. X, fpry: левый верх Y,
+		    	//sprx: правый нижний X, spry: правый нижний Y
+		    	})
+		    });	
 		var controlPanel = ['zoomControl', 'typeSelector',  'fullscreenControl', 'geolocationControl'];
 	    ymaps.geolocation.get().then(function (res) {
 	        var mapContainer = $('#map'),
@@ -116,11 +141,7 @@
 				    	    myRectangle = new ymaps.Rectangle([
 				    	    	firstPointRect,
 				    	    	secondPointRect
-				    	    ], {
-				    	        //Свойства
-				    	        hintContent: 'Меня перетаскивать нельзя!',
-				    	        balloonContent: 'Прямоугольник 1'
-				    	    }, {
+				    	    ],  {
 				    	        // Опции.
 				    	        // Цвет и прозрачность заливки.
 				    	        fillColor: '#7df9ff33',
@@ -182,29 +203,65 @@
         html, body, #map {
             width: 100%; height: 100%; padding: 0; margin: 0;
         }
-        h1, h2 {
+        h1, h2, h3 {
         	margin: 0;
         }
         h1{
         	text-align: center;
         }
+        body {
+		    background: #f2f2f2;
+	    }
+	    #form-fields > select{
+	    font-weight: 700;
+			  color: white;
+			  text-decoration: none;
+			  padding: .8em 1em calc(.8em + 3px);
+			  border-radius: 3px;
+			  background: rgb(64,199,129);
+			  box-shadow: 0 -3px rgb(53,167,110) inset;
+			  transition: 0.2s;
+	    }
+	    #form-fields > input {
+			  font-weight: 700;
+			  color: white;
+			  text-decoration: none;
+			  padding: .8em 1em calc(.8em + 3px);
+			  border-radius: 3px;
+			  background: rgb(64,199,129);
+			  box-shadow: 0 -3px rgb(53,167,110) inset;
+			  transition: 0.2s;
+		} 
+		#form-fields > input:hover { background: rgb(53, 167, 110); }
+		#form-fields > input:active {
+		  background: rgb(33,147,90);
+		  box-shadow: 0 3px rgb(33,147,90) inset;
+		}
     </style>	
 </head>
 <body>
 		${HEADER}
 		${body}
 	<div>
-		<span><h2>Выберите название модели: </h2></span>
-		<select></select>
-		<input type="button" value="Получить клиентов">
+		<span><h3>Выберите название модели: </h3></span>
+		<div id="form-fields">
+		<select id = "modelSelect">
+			<option value="one">one11</option>
+	    	<option value="two">two22</option>
+		</select>
+		
+		<input type="button" id = "getClient" value="Получить клиентов"></div>
+		
 	</div>		
+	<br>
 	<div>
-		<span>Выберите место или область на карте (опционально): </span>
+		<span><h3>Выберите место или область на карте (опционально): </h3></span>
 	</div>
 	<div>
 		<span>Способ выделения области</span>
 		<form action="">
-		  <input id="circle" type="radio" name="gender" value="circle" checked> Круг <input type="text" id="circleRadius" pattern="0123456789" value="10000"><span> м</span><br>
+		  <input id="none" type="radio" name="gender" value="none" checked> Нет геолокации <br>
+		  <input id="circle" type="radio" name="gender" value="circle"> Круг <input type="text" id="circleRadius" pattern="0123456789" value="10000"><span> м</span><br>
 		  <input id="rectangle" type="radio" name="gender" value="rectangle"> Прямоугольник<br>
 		</form>
 	</div>
