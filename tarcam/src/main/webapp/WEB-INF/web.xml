@@ -12,4 +12,12 @@
     <servlet-name>MainPage</servlet-name>
     <url-pattern>/</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>Clients</servlet-name>
+    <servlet-class>ru.urfu.computing.tarcam.site.servlet.Clients</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Clients</servlet-name>
+    <url-pattern>/Clients</url-pattern>
+  </servlet-mapping>  
 </web-app>

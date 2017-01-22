@@ -8,6 +8,7 @@
  */
 package ru.urfu.computing.server.core.dao.relation;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.hibernate.HibernateException;
@@ -31,6 +32,36 @@ public class RelationDAO extends ElementDAOImpl<Relation> {
 
     public RelationDAO(Class<Relation> elementClass) {
         super(elementClass);
+    }
+
+    public Collection<Relation> getByCameraId(long cameraId, int length) {
+        Collection<Relation> relationList = null;
+        Session sess = null;
+        if (cameraId != 0L) {
+            try {
+                sess = HibernateUtil.getSessionFactory().openSession();
+                DetachedCriteria criteria = DetachedCriteria.forClass(Relation.class)
+                        .add(Restrictions.eq("camera_id", cameraId));
+                relationList = criteria.getExecutableCriteria(sess).setMaxResults(length).list();
+
+            }
+            catch (HibernateException e) {
+                Logfile.getInstance().getLogger().error(e.toString());
+            }
+            catch (Exception e) {
+                Logfile.getInstance().getLogger().error(e.toString());
+            }
+            finally {
+                if (sess != null && sess.isOpen()) {
+                    sess.close();
+                }
+            }
+        }
+        else {
+            Logfile.getInstance().getLogger().error("The Relation name is null.");
+            throw new NullPointerException("The Relation name is null.");
+        }
+        return relationList;
     }
 
     public Relation getByPair(long cameraId, long personId) {
