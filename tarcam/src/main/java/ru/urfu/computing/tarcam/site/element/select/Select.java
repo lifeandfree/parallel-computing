@@ -33,7 +33,7 @@ public class Select {
         sb.append("<select>");
         Collection<Camera> cameras = DaoFactory.getInstance().getCameraDAO().getAllElements();
         for (Camera camera : cameras) {
-            sb.append("<option value=\"" + camera.getName() + "\">" + camera.getName() + "</option>");
+            sb.append("<option value=\"" + camera.getId() + "\">" + camera.getName() + "</option>");
         }
         sb.append("</select>");
         select = sb.toString();
