@@ -44,7 +44,7 @@ public class Clients extends HttpServlet {
         PrintWriter out = resp.getWriter();
         String modelTel = req.getParameter("tm");
         if (modelTel == null) {
-            out.print("{error: 2}");
+            out.print("\"error\": 2 }");
         }
 
         Long modelTelL = Long.valueOf(modelTel);
@@ -66,15 +66,16 @@ public class Clients extends HttpServlet {
         sb.append("{ ");
         if (typeShape == null) {
             if (persons.isEmpty()) {
-                sb.append("error: 1, clients: [ ]}");
+                sb.append("\"error\", \"clients\": [ ]}");
 
             }
             else {
-                sb.append("error: 0, clients: [ ");
+                sb.append("\"error\": 0, \"clients\": [ ");
             }
             for (Person person : persons) {
                 sb.append("\"flickr.com/" + person.getName() + "\", ");
             }
+            sb.deleteCharAt(sb.length() - 2);
             sb.append(" ] }");
         }
 
