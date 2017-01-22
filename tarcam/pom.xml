@@ -16,6 +16,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	<jdkVersion>1.8</jdkVersion>
 	<log4j.version>2.6.1</log4j.version>
+	<hibernate.version>5.2.1.Final</hibernate.version>
   </properties>
   <dependencies>
   
@@ -35,8 +36,26 @@
 		<groupId>javax.servlet</groupId>
 		<artifactId>javax.servlet-api</artifactId>
 		<version>3.1.0</version>
-	</dependency>  
-	      
+	</dependency> 
+	
+	<dependency>
+		<groupId>ru.urfu.computing.server</groupId>
+	    <artifactId>computing</artifactId>
+	    <version>1.0-SNAPSHOT</version>
+	</dependency>
+
+<!-- 	 	<dependency> -->
+<!-- 			<groupId>org.hibernate</groupId> -->
+<!-- 			<artifactId>hibernate-core</artifactId> -->
+<!-- 			<version>${hibernate.version}</version> -->
+<!-- 		</dependency>   -->
+		
+<!-- 				<dependency> -->
+<!-- 		    <groupId>postgresql</groupId> -->
+<!-- 		    <artifactId>postgresql</artifactId> -->
+<!-- 		    <version>9.1-901-1.jdbc4</version> -->
+<!-- 		</dependency> -->
+			      
   </dependencies>
   
   <build>

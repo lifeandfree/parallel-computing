@@ -245,13 +245,8 @@
 	<div>
 		<span><h3>Выберите название модели: </h3></span>
 		<div id="form-fields">
-		<select id = "modelSelect">
-			<option value="one">one11</option>
-	    	<option value="two">two22</option>
-		</select>
-		
+		${selcamera}
 		<input type="button" id = "getClient" value="Получить клиентов"></div>
-		
 	</div>		
 	<br>
 	<div>
