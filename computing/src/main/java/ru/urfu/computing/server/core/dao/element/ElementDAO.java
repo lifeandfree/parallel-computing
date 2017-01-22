@@ -23,6 +23,10 @@ public interface ElementDAO<E> {
 
     public E getElementByID(Long elId);
 
+    public Collection<E> getLimitElements(int firstResult, int maxResults);
+
+    public long getSizeOfTable();
+
     public void updateElement(E el);
 
 }

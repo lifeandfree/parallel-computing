@@ -3,10 +3,10 @@
  * Проект: Параллельные вычисления, 2016
  *
  * @author lifeandfree
- *         Пакет: ru.urfu.computing.server.core.model.person
- *         Дата создания класса: 23 нояб. 2016 г.
+ *         Пакет: ru.urfu.computing.server.core.model.social
+ *         Дата создания класса: 21 янв. 2017 г.
  */
-package ru.urfu.computing.server.core.model.person;
+package ru.urfu.computing.server.core.model.service;
 
 import java.io.Serializable;
 
@@ -23,13 +23,13 @@ import org.hibernate.annotations.Type;
  * @author lifeandfree
  */
 @Entity
-@Table(name = "PERSON")
-public class Person implements Serializable {
+@Table(name = "SERVICE")
+public class Service implements Serializable {
 
     /**
      *
      */
-    private static final long serialVersionUID = -2225628683943215488L;
+    private static final long serialVersionUID = 6239229087830818018L;
 
     @Id
     @GeneratedValue(generator = "increment")
@@ -41,27 +41,20 @@ public class Person implements Serializable {
     @Type(type = "text")
     private String name;
 
-    @Column(name = "service_id", nullable = false)
-    private long service_id;
-
     /**
-     * @param name
-     * @param service_id
+     *
      */
-    public Person() {
+    public Service() {
         super();
         this.name = null;
-        this.service_id = 0L;
     }
 
     /**
      * @param name
-     * @param service_id
      */
-    public Person(String name, long service_id) {
+    public Service(String name) {
         super();
         this.name = name;
-        this.service_id = service_id;
     }
 
     /**
@@ -79,26 +72,11 @@ public class Person implements Serializable {
     }
 
     /**
-     * @return the service_id
-     */
-    public long getService_id() {
-        return service_id;
-    }
-
-    /**
      * @param name
      *            the name to set
      */
     public void setName(String name) {
         this.name = name;
-    }
-
-    /**
-     * @param service_id
-     *            the service_id to set
-     */
-    public void setService_id(long service_id) {
-        this.service_id = service_id;
     }
 
 }

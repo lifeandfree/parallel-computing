@@ -54,5 +54,6 @@
         <mapping class="ru.urfu.computing.server.core.model.person.Person"/>
         <mapping class="ru.urfu.computing.server.core.model.camera.Camera"/>
         <mapping class="ru.urfu.computing.server.core.model.location.Location"/>
+        <mapping class="ru.urfu.computing.server.core.model.service.Service"/>
     </session-factory>
 </hibernate-configuration>

@@ -13,6 +13,9 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 
 import ru.urfu.computing.server.core.db.hibernate.HibernateUtil;
 import ru.urfu.computing.server.core.logger.Logfile;
@@ -138,6 +141,57 @@ public class ElementDAOImpl<E> implements ElementDAO<E> {
             }
         }
         return el;
+    }
+
+    /**
+     * Запращивает элементы из БД.
+     *
+     * @return {@link Collection} элементов {@link E} из БД.
+     */
+    @Override
+    public Collection<E> getLimitElements(int firstResult, int maxResults) {
+        List<E> list = null;
+        Session session = null;
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+            // Transaction transaction = session.beginTransaction();
+            DetachedCriteria criteria = DetachedCriteria.forClass(elementClass).add(Restrictions.isNotNull("tags"));
+            list = criteria.getExecutableCriteria(session).setFirstResult(firstResult).setMaxResults(maxResults).list();
+            // list = criteria.getExecutableCriteria(session).list();
+            // TODO
+            // transaction.commit();
+        }
+        catch (Exception e) {
+            Logfile.getInstance().getLogger()
+                    .error(HibernateUtil.class.getName() + "I can not query all items in the database", e);
+        }
+        finally {
+            if (session != null && session.isOpen()) {
+                session.close();
+            }
+        }
+        return list;
+    }
+
+    @Override
+    public long getSizeOfTable() {
+        long size = 0;
+        Session session = null;
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+            size = (long)session.createCriteria(elementClass).setProjection(Projections.rowCount()).uniqueResult();
+        }
+        catch (Exception e) {
+            Logfile.getInstance().getLogger()
+                    .error(HibernateUtil.class.getName() + "I can not query all items in the database", e);
+        }
+        finally {
+            if (session != null && session.isOpen()) {
+                session.close();
+            }
+        }
+        return size;
+
     }
 
     /**
