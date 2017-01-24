@@ -85,7 +85,7 @@ public class Clients extends HttpServlet {
         else {
             boolean flagSim = true;
             PersonJDBC personJDBC = new PersonJDBC(
-                    new DatabaseImpl("localhost", 5432, "computing3", "computing", "123", "postgresql"));
+                    new DatabaseImpl("192.168.1.41", 5432, "computing3", "computing", "123", "postgresql"));
             ArrayList<String> personNames = new ArrayList<>();
             double fprx;
             double fpry;
@@ -94,10 +94,10 @@ public class Clients extends HttpServlet {
             if (typeShape.equals("c")) {
                 double centerX = new Utils().getDoubleParameter(req.getParameter("ccx"));
                 double centerY = new Utils().getDoubleParameter(req.getParameter("ccy"));
-                double radius = new Utils().getDoubleParameter(req.getParameter("cr"));
+                double radius = new Utils().getDoubleParameter(req.getParameter("cr")) /1000;
 
-                double delta = (radius / 111.134861111);
-                fpry = centerY + delta;
+                double delta = (radius  / (111.134861111));
+                fpry = centerY - delta;
                 spry = centerY + delta;
                 double gradekv = 40075.696 / 360;
                 double deltaX = (radius / (gradekv * Math.cos(centerX)));
@@ -108,7 +108,7 @@ public class Clients extends HttpServlet {
             else {
                 //
                 // //rect
-                if (typeShape.equals("t")) {
+                if (typeShape.equals("r")) {
                     fprx = new Utils().getDoubleParameter(req.getParameter("fprx"));
                     fpry = new Utils().getDoubleParameter(req.getParameter("fpry"));
                     sprx = new Utils().getDoubleParameter(req.getParameter("sprx"));
