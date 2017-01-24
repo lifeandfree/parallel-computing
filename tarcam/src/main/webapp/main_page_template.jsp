@@ -47,17 +47,11 @@
 		});
 		
 		function ShowResults(value, index, ar) {
-		    document.write("value: " + value);
+		    document.write("<a href='http://" + value+"'a>" +value + "</a>");
 		    document.write("<br />");
 		}
 		
-		var jqxhr = $.getJSON( "example.json", function() {
-			 console.log( "success" );
-			})
-			.done(function() { console.log( "second success" ); })
-			.fail(function() { console.log( "error" ); })
-			.always(function() { console.log( "complete" ); });
-		
+			
 		jQuery(document).ready(function(){                          
 		    $('#getClient').click(function(){ 
 		    	var myCircleCoorX, myCircleCoorY, firstPointRectX, firstPointRectY,secondPointRectX, secondPointRectY, fShape;
@@ -72,25 +66,17 @@
 		    	secondPointRectY = secondPointRect[1];
 		    	}
 		    	if(flagShape != 'none'){fShape = flagShape.charAt(0);}
-//		    	$.get( "localhost:8080/tarcam/clients", { tm:telModel, t:fShape, ccx: myCircleCoorX, ccy: myCircleCoorY,cr: circleRadiusSize, 
-//		    		fprx: firstPointRectX, fpry: firstPointRectY, sprx: secondPointRectX, spry: secondPointRectY },
-//		    		function(json){
-//		    			$('#getClient').html('');
-//		    			$('#example-4').append('Error:' + json.error + '<br/>')
-//		    						   .append('Clients: ' + json.clients.forEach(ShowResults) + '<br/>')
-//		    		});
-		    	jQuery.getJSON( "localhost:8080/tarcam/clients", { tm:telModel, t:fShape, ccx: myCircleCoorX, ccy: myCircleCoorY,cr: circleRadiusSize, 
+//				alert(myCircleCoorX+' '+ myCircleCoorY+' '+ circleRadiusSize);
+		    	jQuery.getJSON( 'http://localhost:8080/tarcam/Clients', { tm:telModel, t:fShape, ccx: myCircleCoorX, ccy: myCircleCoorY,cr: circleRadiusSize, 
 		    		fprx: firstPointRectX, fpry: firstPointRectY, sprx: secondPointRectX, spry: secondPointRectY },
-		    		function(json){		    			
+				//jQuery.getJSON( 'http://localhost:8080/tarcam/Clients?tm:1', { },
+		    		function(json){	
 		    	    	var newWin = window.open("Выбранные клиенты", "Clients");
-               		    if(json.error=='1'){newWin.document.write("Нет пользователей!")};
-						if(json.error=='2'){newWin.document.write("Ошибка!")};
+             		    if(json.error.value =='1'){newWin.document.write("Нет пользователей!")};
+						if(json.error.value =='2'){newWin.document.write("Ошибка!")};
+
 				    	newWin.document.write(json.clients.forEach(ShowResults));		    						   
 		    		});
-
-		    	//tm:Модель телефона t тип выделения, ccx центр круга X, ccy: центр круга Y,cr: радиус, fprx: левый верх. X, fpry: левый верх Y,
-		    	//sprx: правый нижний X, spry: правый нижний Y
-		    	
 		    	
 		    	})
 		    });	
