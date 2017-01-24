@@ -30,7 +30,7 @@ public class Select {
     public String getSelectFromCameraList() {
         select = "";
         StringBuilder sb = new StringBuilder("");
-        sb.append("<select>");
+        sb.append("<select id='modelSelect'>");
         Collection<Camera> cameras = DaoFactory.getInstance().getCameraDAO().getAllElements();
         for (Camera camera : cameras) {
             sb.append("<option value=\"" + camera.getId() + "\">" + camera.getName() + "</option>");

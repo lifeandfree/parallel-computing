@@ -47,7 +47,7 @@ public class Clients extends HttpServlet {
         PrintWriter out = resp.getWriter();
         String modelTel = req.getParameter("tm");
         if (modelTel == null) {
-            out.print("\"error\": 2 }");
+            out.print("{\"error\": 2 }");
         }
 
         Long modelTelL = Long.valueOf(modelTel);

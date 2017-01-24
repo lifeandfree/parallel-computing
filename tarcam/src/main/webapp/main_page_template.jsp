@@ -7,7 +7,7 @@
 	<meta name="description" content="${description}" />
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<script src="//api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
-	 <script src="//yandex.st/jquery/2.2.3/jquery.min.js" type="text/javascript"></script>
+	<script src="//yandex.st/jquery/2.2.3/jquery.min.js" type="text/javascript"></script>
 	<script type="text/javascript">
 	ymaps.ready(init);
 	var myMap, myGeoObject, myRectangle, myCircle;
@@ -46,6 +46,12 @@
 			clearShape();
 		});
 		
+		function ShowResults(value, index, ar) {
+		    document.write("<a href='http://" + value+"'a>" +value + "</a>");
+		    document.write("<br />");
+		}
+		
+			
 		jQuery(document).ready(function(){                          
 		    $('#getClient').click(function(){ 
 		    	var myCircleCoorX, myCircleCoorY, firstPointRectX, firstPointRectY,secondPointRectX, secondPointRectY, fShape;
@@ -60,10 +66,18 @@
 		    	secondPointRectY = secondPointRect[1];
 		    	}
 		    	if(flagShape != 'none'){fShape = flagShape.charAt(0);}
-		    	$.get( "localhost:8080/tarcam/clients", { tm:telModel, t:fShape, ccx: myCircleCoorX, ccy: myCircleCoorY,cr: circleRadiusSize, 
-		    		fprx: firstPointRectX, fpry: firstPointRectY, sprx: secondPointRectX, spry: secondPointRectY } );
-		    	//tm:Модель телефона t тип выделения, ccx центр круга X, ccy: центр круга Y,cr: радиус, fprx: левый верх. X, fpry: левый верх Y,
-		    	//sprx: правый нижний X, spry: правый нижний Y
+//				alert(myCircleCoorX+' '+ myCircleCoorY+' '+ circleRadiusSize);
+		    	jQuery.getJSON( 'http://localhost:8080/tarcam/Clients', { tm:telModel, t:fShape, ccx: myCircleCoorX, ccy: myCircleCoorY,cr: circleRadiusSize, 
+		    		fprx: firstPointRectX, fpry: firstPointRectY, sprx: secondPointRectX, spry: secondPointRectY },
+				//jQuery.getJSON( 'http://localhost:8080/tarcam/Clients?tm:1', { },
+		    		function(json){	
+		    	    	var newWin = window.open("Выбранные клиенты", "Clients");
+             		    if(json.error.value =='1'){newWin.document.write("Нет пользователей!")};
+						if(json.error.value =='2'){newWin.document.write("Ошибка!")};
+
+				    	newWin.document.write(json.clients.forEach(ShowResults));		    						   
+		    		});
+		    	
 		    	})
 		    });	
 		var controlPanel = ['zoomControl', 'typeSelector',  'fullscreenControl', 'geolocationControl'];
@@ -232,6 +246,13 @@
 			  box-shadow: 0 -3px rgb(53,167,110) inset;
 			  transition: 0.2s;
 		} 
+		div{
+			margin-left:10;
+		}
+		form{
+		margin-top:10;
+		margin-bottom:10;
+		}
 		#form-fields > input:hover { background: rgb(53, 167, 110); }
 		#form-fields > input:active {
 		  background: rgb(33,147,90);
@@ -240,6 +261,7 @@
     </style>	
 </head>
 <body>
+<div id="images"></div>
 		${HEADER}
 		${body}
 	<div>
