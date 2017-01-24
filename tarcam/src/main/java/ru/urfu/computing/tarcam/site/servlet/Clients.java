@@ -19,9 +19,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import ru.urfu.computing.server.core.dao.DaoFactory;
+import ru.urfu.computing.server.core.dao.person.PersonJDBC;
+import ru.urfu.computing.server.core.db.jdbc.model.database.DatabaseImpl;
 import ru.urfu.computing.server.core.model.camera.Camera;
 import ru.urfu.computing.server.core.model.person.Person;
 import ru.urfu.computing.server.core.model.relation.Relation;
+import ru.urfu.computing.server.utils.Utils;
 
 /**
  * @author lifeandfree
@@ -51,22 +54,23 @@ public class Clients extends HttpServlet {
 
         Camera camera = DaoFactory.getInstance().getCameraDAO().getElementByID(modelTelL);
 
-        Collection<Relation> relations = DaoFactory.getInstance().getRelationDAO().getByCameraId(camera.getId(), 1000);
-        ArrayList<Person> persons = new ArrayList<>();
-        for (Relation relation : relations) {
-            Person person = DaoFactory.getInstance().getPersonDAO().getElementByID(relation.getPerson_id());
-            if (person != null) {
-                persons.add(person);
-            }
-        }
-
-        String typeShape = req.getParameter("t");
-
         StringBuilder sb = new StringBuilder();
+        String typeShape = req.getParameter("t");
         sb.append("{ ");
         if (typeShape == null) {
+
+            Collection<Relation> relations = DaoFactory.getInstance().getRelationDAO().getByCameraId(camera.getId(),
+                    10000);
+            ArrayList<Person> persons = new ArrayList<>();
+            for (Relation relation : relations) {
+                Person person = DaoFactory.getInstance().getPersonDAO().getElementByID(relation.getPerson_id());
+                if (person != null) {
+                    persons.add(person);
+                }
+            }
+
             if (persons.isEmpty()) {
-                sb.append("\"error\", \"clients\": [ ]}");
+                sb.append("\"error\": 1, \"clients\": [ ]}");
 
             }
             else {
@@ -76,12 +80,68 @@ public class Clients extends HttpServlet {
                 sb.append("\"flickr.com/" + person.getName() + "\", ");
             }
             sb.deleteCharAt(sb.length() - 2);
-            sb.append(" ] }");
+
         }
+        else {
+            boolean flagSim = true;
+            PersonJDBC personJDBC = new PersonJDBC(
+                    new DatabaseImpl("localhost", 5432, "computing3", "computing", "123", "postgresql"));
+            ArrayList<String> personNames = new ArrayList<>();
+            double fprx;
+            double fpry;
+            double sprx;
+            double spry;
+            if (typeShape.equals("c")) {
+                double centerX = new Utils().getDoubleParameter(req.getParameter("ccx"));
+                double centerY = new Utils().getDoubleParameter(req.getParameter("ccy"));
+                double radius = new Utils().getDoubleParameter(req.getParameter("cr"));
+
+                double delta = (radius / 111.134861111);
+                fpry = centerY + delta;
+                spry = centerY + delta;
+                double gradekv = 40075.696 / 360;
+                double deltaX = (radius / (gradekv * Math.cos(centerX)));
+
+                fprx = centerX - deltaX;
+                sprx = centerX + deltaX;
+            }
+            else {
+                //
+                // //rect
+                if (typeShape.equals("t")) {
+                    fprx = new Utils().getDoubleParameter(req.getParameter("fprx"));
+                    fpry = new Utils().getDoubleParameter(req.getParameter("fpry"));
+                    sprx = new Utils().getDoubleParameter(req.getParameter("sprx"));
+                    spry = new Utils().getDoubleParameter(req.getParameter("spry"));
+                }
+                else {
+                    flagSim = false;
+                    fprx = 0;
+                    fpry = 0;
+                    sprx = 0;
+                    spry = 0;
+                }
+            }
+            if (flagSim) {
+                personNames = personJDBC.getPersonByGeoJDBC(camera.getId(), fprx, fpry, sprx, spry);
+            }
+
+            if (personNames.isEmpty()) {
+                sb.append("\"error\": 1, \"clients\": [  ");
+
+            }
+            else {
+                sb.append("\"error\": 0, \"clients\": [ ");
+            }
+            for (String personName : personNames) {
+                sb.append("\"flickr.com/" + personName + "\", ");
+            }
+            sb.deleteCharAt(sb.length() - 2);
+        }
+        sb.append(" ] }");
 
         out.print(sb.toString());
         //
-
         // //circle
         // String centerX = req.getParameter("ccx");
         // String centerY = req.getParameter("ccy");

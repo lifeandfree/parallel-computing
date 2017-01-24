@@ -42,8 +42,12 @@ public class RelationDAO extends ElementDAOImpl<Relation> {
                 sess = HibernateUtil.getSessionFactory().openSession();
                 DetachedCriteria criteria = DetachedCriteria.forClass(Relation.class)
                         .add(Restrictions.eq("camera_id", cameraId));
-                relationList = criteria.getExecutableCriteria(sess).setMaxResults(length).list();
-
+                if (length == 0) {
+                    relationList = criteria.getExecutableCriteria(sess).list();
+                }
+                else {
+                    relationList = criteria.getExecutableCriteria(sess).setMaxResults(length).list();
+                }
             }
             catch (HibernateException e) {
                 Logfile.getInstance().getLogger().error(e.toString());
