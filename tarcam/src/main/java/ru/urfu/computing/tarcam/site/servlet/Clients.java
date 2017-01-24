@@ -83,26 +83,51 @@ public class Clients extends HttpServlet {
 
         }
         else {
+            boolean flagSim = true;
             PersonJDBC personJDBC = new PersonJDBC(
                     new DatabaseImpl("localhost", 5432, "computing3", "computing", "123", "postgresql"));
             ArrayList<String> personNames = new ArrayList<>();
+            double fprx;
+            double fpry;
+            double sprx;
+            double spry;
             if (typeShape.equals("c")) {
-                // String centerX = req.getParameter("ccx");
-                // String centerY = req.getParameter("ccy");
-                // String radius = req.getParameter("cr");
+                double centerX = new Utils().getDoubleParameter(req.getParameter("ccx"));
+                double centerY = new Utils().getDoubleParameter(req.getParameter("ccy"));
+                double radius = new Utils().getDoubleParameter(req.getParameter("cr"));
+
+                double delta = (radius / 111.134861111);
+                fpry = centerY + delta;
+                spry = centerY + delta;
+                double gradekv = 40075.696 / 360;
+                double deltaX = (radius / (gradekv * Math.cos(centerX)));
+
+                fprx = centerX - deltaX;
+                sprx = centerX + deltaX;
             }
             else {
                 //
                 // //rect
-                double fprx = new Utils().getDoubleParameter(req.getParameter("fprx"));
-                double fpry = new Utils().getDoubleParameter(req.getParameter("fpry"));
-                double sprx = new Utils().getDoubleParameter(req.getParameter("sprx"));
-                double spry = new Utils().getDoubleParameter(req.getParameter("spry"));
-                personNames = personJDBC.getPersonByGeoJDBC(camera.getId(), fprx, fpry, sprx, spry);
-
+                if (typeShape.equals("t")) {
+                    fprx = new Utils().getDoubleParameter(req.getParameter("fprx"));
+                    fpry = new Utils().getDoubleParameter(req.getParameter("fpry"));
+                    sprx = new Utils().getDoubleParameter(req.getParameter("sprx"));
+                    spry = new Utils().getDoubleParameter(req.getParameter("spry"));
+                }
+                else {
+                    flagSim = false;
+                    fprx = 0;
+                    fpry = 0;
+                    sprx = 0;
+                    spry = 0;
+                }
             }
+            if (flagSim) {
+                personNames = personJDBC.getPersonByGeoJDBC(camera.getId(), fprx, fpry, sprx, spry);
+            }
+
             if (personNames.isEmpty()) {
-                sb.append("\"error\": 1, \"clients\": [ ]}");
+                sb.append("\"error\": 1, \"clients\": [  ");
 
             }
             else {
@@ -111,12 +136,12 @@ public class Clients extends HttpServlet {
             for (String personName : personNames) {
                 sb.append("\"flickr.com/" + personName + "\", ");
             }
+            sb.deleteCharAt(sb.length() - 2);
         }
         sb.append(" ] }");
 
         out.print(sb.toString());
         //
-
         // //circle
         // String centerX = req.getParameter("ccx");
         // String centerY = req.getParameter("ccy");
