@@ -10,6 +10,8 @@ package ru.urfu.computing.server.core.dao.person;
 
 import java.util.List;
 
+import javax.persistence.Query;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.criterion.DetachedCriteria;
@@ -25,6 +27,11 @@ import ru.urfu.computing.server.utils.FileHandler;
  * @author lifeandfree
  */
 public class PersonDAO extends ElementDAOImpl<Person> {
+
+    public static void main(String[] args) {
+
+        // getPersonByGeoJDBC(4, -180, 180, -180, 180);
+    }
 
     public PersonDAO() {
         super(Person.class);
@@ -65,6 +72,57 @@ public class PersonDAO extends ElementDAOImpl<Person> {
             throw new NullPointerException("The person name is null.");
         }
         return person;
+    }
+
+    // TODO не рабочий
+    public List getPersonByGeo(long cameraId, double latitudeX, double longitudeX, double latitudeY,
+            double longitudeY) {
+        if (latitudeX > latitudeY) {
+            double tmplat = latitudeY;
+            latitudeY = latitudeX;
+            latitudeX = tmplat;
+        }
+        if (longitudeX > longitudeY) {
+            double tmplat = longitudeY;
+            longitudeY = longitudeX;
+            longitudeX = tmplat;
+        }
+        List list = null;
+        // List<Person> person = null;
+        Session sess = null;
+        if (cameraId != 0L) {
+            try {
+                sess = HibernateUtil.getSessionFactory().openSession();
+                Query query = sess.createQuery(
+                        "SELECT person.name FROM (SELECT person_id FROM location where (latitude BETWEEN " + latitudeX
+                                + " and " + latitudeY + ") and (longitude BETWEEN " + longitudeX + " and " + longitudeY
+                                + ")) as locper INNER JOIN person ON (locper.person_id=person.id) AND person.id IN (SELECT person_id FROM relation where camera_id="
+                                + cameraId + ");");
+                list = query.getResultList();
+                // person = query.list();
+
+                // List<Person> personList = criteria.getExecutableCriteria(sess).setMaxResults(1).list();
+                // if (personList != null && personList.size() > 0) {
+                // person = ((personList.get(0)));
+                // }
+            }
+            catch (HibernateException e) {
+                Logfile.getInstance().getLogger().error(e.toString());
+            }
+            catch (Exception e) {
+                Logfile.getInstance().getLogger().error(e.toString());
+            }
+            finally {
+                if (sess != null && sess.isOpen()) {
+                    sess.close();
+                }
+            }
+        }
+        else {
+            Logfile.getInstance().getLogger().error("The person name is null.");
+            throw new NullPointerException("The person name is null.");
+        }
+        return list;
     }
 
 }

@@ -19,10 +19,11 @@ import ru.urfu.computing.server.core.logger.Logfile;
  *         Фабрика по созданию соединений для подключения к БД.
  */
 public class ConnectionFactory {
-    // public static final String DRIVER_CLASS_MYSQL = "com.mysql.jdbc.Driver";
-    private static String DRIVER_CLASS_HIVE = "org.apache.hive.jdbc.HiveDriver";
+    public static String DRIVER_CLASS_HIVE = "org.apache.hive.jdbc.HiveDriver";
+    public static final String DRIVER_CLASS_MYSQL = "com.mysql.jdbc.Driver";
+    public static String DRIVER_CLASS_POSTGRESQL = "org.postgresql.Driver";
 
-    private static ConnectionFactory instance = new ConnectionFactory(DRIVER_CLASS_HIVE);
+    private static ConnectionFactory instance = new ConnectionFactory(DRIVER_CLASS_POSTGRESQL);
 
     public static Connection getConnection(String url, String user, String password) {
         return instance.createConnection(url, user, password);
