@@ -47,17 +47,20 @@
 		});
 		
 		function ShowResults(value, index, ar) {
+			if (value != null){
 		    document.write("<a href='http://" + value+"'a>" +value + "</a>");
 		    document.write("<br />");
+			}
 		}
 		
 			
 		jQuery(document).ready(function(){                          
 		    $('#getClient').click(function(){ 
-		    	var myCircleCoorX, myCircleCoorY, firstPointRectX, firstPointRectY,secondPointRectX, secondPointRectY, fShape;
+		    	var myCircleCoorX, myCircleCoorY, firstPointRectX, firstPointRectY,secondPointRectX, secondPointRectY, fShape, circleRadius;
 		    	telModel = document.getElementById('modelSelect').value;
 		    	if (myCircleCoor != null) {myCircleCoorX =myCircleCoor[0];
 		    	myCircleCoorY = myCircleCoor[1];
+		    	circleRadius = circleRadiusSize;
 		    	}
 		    	if (firstPointRect != null){firstPointRectX = firstPointRect[0];
 		    	firstPointRectY = firstPointRect[1];
@@ -66,16 +69,14 @@
 		    	secondPointRectY = secondPointRect[1];
 		    	}
 		    	if(flagShape != 'none'){fShape = flagShape.charAt(0);}
-//				alert(myCircleCoorX+' '+ myCircleCoorY+' '+ circleRadiusSize);
-		    	jQuery.getJSON( 'http://localhost:8080/tarcam/Clients', { tm:telModel, t:fShape, ccx: myCircleCoorX, ccy: myCircleCoorY,cr: circleRadiusSize, 
-		    		fprx: firstPointRectX, fpry: firstPointRectY, sprx: secondPointRectX, spry: secondPointRectY },
-				//jQuery.getJSON( 'http://localhost:8080/tarcam/Clients?tm:1', { },
-		    		function(json){	
-		    	    	var newWin = window.open("Выбранные клиенты", "Clients");
-             		    if(json.error.value =='1'){newWin.document.write("Нет пользователей!")};
-						if(json.error.value =='2'){newWin.document.write("Ошибка!")};
-
-				    	newWin.document.write(json.clients.forEach(ShowResults));		    						   
+				var param = {tm:telModel, t:fShape, ccx: myCircleCoorX, ccy: myCircleCoorY,cr: circleRadius, 
+						fprx: firstPointRectX, fpry: firstPointRectY, sprx: secondPointRectX, spry: secondPointRectY};
+		    	jQuery.getJSON( 'http://localhost:8080/tarcam/Clients', param,
+		    		function(json){
+						var newWin = window.open("", "_self");		    			
+             		    if(json.error =='1'){newWin.document.write("Нет пользователей!")};
+						if(json.error =='2'){newWin.document.write("Ошибка!")};
+				    	json.clients.forEach(ShowResults);
 		    		});
 		    	
 		    	})
@@ -227,13 +228,10 @@
 		    background: #f2f2f2;
 	    }
 	    #form-fields > select{
-	    font-weight: 700;
-			  color: white;
+	    	  font-weight: 700;
 			  text-decoration: none;
 			  padding: .8em 1em calc(.8em + 3px);
 			  border-radius: 3px;
-			  background: rgb(64,199,129);
-			  box-shadow: 0 -3px rgb(53,167,110) inset;
 			  transition: 0.2s;
 	    }
 	    #form-fields > input {
@@ -246,9 +244,11 @@
 			  box-shadow: 0 -3px rgb(53,167,110) inset;
 			  transition: 0.2s;
 		} 
-		div{
-			margin-left:10;
-		}
+		#top1 {
+	    margin-left: 10px; /* Положение элемента от правого края */
+	    margin-top: 10px; /* Положение от верхнего края */
+	    margin-bottom: 10px;
+	    }
 		form{
 		margin-top:10;
 		margin-bottom:10;
@@ -261,26 +261,27 @@
     </style>	
 </head>
 <body>
-<div id="images"></div>
 		${HEADER}
 		${body}
-	<div>
-		<span><h3>Выберите название модели: </h3></span>
-		<div id="form-fields">
-		${selcamera}
-		<input type="button" id = "getClient" value="Получить клиентов"></div>
-	</div>		
-	<br>
-	<div>
-		<span><h3>Выберите место или область на карте (опционально): </h3></span>
-	</div>
-	<div>
-		<span>Способ выделения области</span>
-		<form action="">
-		  <input id="none" type="radio" name="gender" value="none" checked> Нет геолокации <br>
-		  <input id="circle" type="radio" name="gender" value="circle"> Круг <input type="text" id="circleRadius" pattern="0123456789" value="10000"><span> м</span><br>
-		  <input id="rectangle" type="radio" name="gender" value="rectangle"> Прямоугольник<br>
-		</form>
+		<div id = "top1">
+			<div>
+				<span><h3>Выберите название модели: </h3></span>
+				<div id="form-fields">
+				${selcamera}
+				<input type="button" id = "getClient" value="Получить клиентов"></div>
+			</div>		
+			<br>
+			<div>
+				<span><h3>Выберите место или область на карте (опционально): </h3></span>
+			</div>
+			<div>
+				<span>Способ выделения области</span>
+				<form action="">
+				  <input id="none" type="radio" name="gender" value="none" checked> Нет геолокации <br>
+				  <input id="circle" type="radio" name="gender" value="circle"> Круг <input type="text" id="circleRadius" pattern="0123456789" value="10000"><span> м</span><br>
+				  <input id="rectangle" type="radio" name="gender" value="rectangle"> Прямоугольник<br>
+				</form>
+			</div>
 	</div>
 	<div id="map"></div>
 		${footer}
